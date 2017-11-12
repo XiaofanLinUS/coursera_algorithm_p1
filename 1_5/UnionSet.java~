@@ -1,0 +1,12 @@
+public class UnionSet {
+
+       public UnionSet(int x) {
+       	      int[] numbers = new int[x];
+	      }
+
+
+
+
+
+
+}
