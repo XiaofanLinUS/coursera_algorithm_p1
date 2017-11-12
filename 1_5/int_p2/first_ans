@@ -1,0 +1,10 @@
+private int find(int q) {
+    int id = items[e];
+    int max = -1;
+    while (id != items[id]) {
+			items[id] = items[items[id]];
+			id = items[id];
+                        if(max < id) max = id;
+     }
+		return id;
+}
