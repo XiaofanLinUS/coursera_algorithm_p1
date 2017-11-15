@@ -16,11 +16,32 @@ public class Percolation {
 		
 		//Connect 1st row to top node and connect last row to bot node
 		for(int i = 0; i < n; i++) {
-			a_union_set.connected(i, top);
-			a_union_set.connected(last_row_first_col + i, bottom);
+			a_union_set.union(i, top);
+			a_union_set.union(last_row_first_col + i, bottom);
 		}
-		size = n;		
+		size = n;
 		
+	}
+	
+	
+	public void display() {
+		//int[][] tiles = new int[size][size];
+		for(int i = 0; i < size; i++) {
+			for(int j = 0; j < size; j++) {
+				if ( sites[ i * size + j ] ) {
+					if (a_union_set.connected(i * size + j, top)) {
+						System.out.print(2 + " ");
+					}else {
+
+						System.out.print(1 + " ");
+					}
+				}else {
+					System.out.print(0 + " ");
+				}
+				
+			}
+			System.out.println();
+		}
 	}
 	
 	public void open(int row, int col) {
@@ -40,9 +61,8 @@ public class Percolation {
 		if(col != 1) neigh[3] = (row - 1) * size + col -2;
 		
 		for(int e : neigh) {
-			System.out.println(e);
 			if(e != -1 && sites[e])  {
-				a_union_set.connected(i, e);
+				a_union_set.union(i, e);
 			}
 		}
 		
@@ -75,13 +95,13 @@ public class Percolation {
 		w.open(2, 1);
 		w.open(2, 2);
 		w.open(3, 2);
-		
-		System.out.println(w.isFull(3, 2));
-		
+		w.open(3, 4);
+		w.open(2, 4);
+		w.display();
 		
 	}
 	private boolean[] sites;
-	private WeightedQuickUnionUF a_union_set ;
+	public WeightedQuickUnionUF a_union_set ;
 	private int size;
 	private int top;
 	private int bottom;
