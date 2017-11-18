@@ -60,6 +60,7 @@ public class Percolation {
 		//Get left elem
 		if(col != 1) neigh[3] = (row - 1) * size + col -2;
 		
+		// 4 calls to union()
 		for(int e : neigh) {
 			if(e != -1 && sites[e])  {
 				a_union_set.union(i, e);
@@ -71,13 +72,14 @@ public class Percolation {
 	public boolean isFull(int row, int col) {
 		if(row < 1 && row > size && col < 1 && col > size) throw new IllegalArgumentException("Out of bound");
 		int i = (row - 1) * size + col -1;
-		
-		return a_union_set.connected(i, top);
+		// 1 call to connected()
+		return a_union_set.connected(i, top) && isOpen(row, col);
 		
 	}
 	public boolean isOpen(int row, int col) {
 		if(row < 1 && row > size && col < 1 && col > size) throw new IllegalArgumentException("Out of bound");
 		int i = (row - 1) * size + col - 1;
+
 		return sites[i];
 	}
 	
@@ -90,14 +92,26 @@ public class Percolation {
 	}
 	
 	public static void main(String[] args) {
-		Percolation w = new Percolation(4);
+		int col, row;
+		
+		int p = 8;
+		int n = 10;
+
+		row = p / n + 1;
+		col = p % n + 1;
+		Percolation w = new Percolation(n);
+		/**
 		w.open(1, 1);
 		w.open(2, 1);
 		w.open(2, 2);
 		w.open(3, 2);
 		w.open(3, 4);
 		w.open(2, 4);
+		w.open(4,2);
+		**/
+		w.open(row, col);
 		w.display();
+		System.out.println(w.percolates());
 		
 	}
 	private boolean[] sites;
@@ -107,4 +121,3 @@ public class Percolation {
 	private int bottom;
 	private int opened;
 }
-
