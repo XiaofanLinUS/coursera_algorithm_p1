@@ -19,13 +19,15 @@ public class Percolation {
 			a_union_set.union(i, top);
 			a_union_set.union(last_row_first_col + i, bottom);
 		}
+
 		size = n;
-		if(n <= 2) {
-		    a_union_set.union(top, bottom);
+
+		if (n <= 2) {
+			a_union_set.union(top, bottom);
 		}
 	}
 
-	public void display() {
+	private void display() {
 		// int[][] tiles = new int[size][size];
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
@@ -79,15 +81,20 @@ public class Percolation {
 			}
 		}
 
+		
+
 	}
 
 	public boolean isFull(int row, int col) {
 		if (row < 1 || row > size || col < 1 || col > size)
 			throw new IllegalArgumentException("Out of bound");
 		int i = (row - 1) * size + col - 1;
+		int j = (row - 2) * size + col - 1;
 		// 1 call to connected()
-		return a_union_set.connected(i, top) && isOpen(row, col);
 
+		boolean result = a_union_set.connected(i, top) && isOpen(row, col);
+		return result;
+		
 	}
 
 	public boolean isOpen(int row, int col) {
@@ -107,14 +114,15 @@ public class Percolation {
 	}
 
 	public static void main(String[] args) {
-		Percolation p = new Percolation(10);
-		p.open(1, 1);
-		System.out.println(p.numberOfOpenSites());
+		Percolation p = new Percolation(1);
+		
+		
+		System.out.println(p.percolates());
 
 	}
 
 	private boolean[] sites;
-	public WeightedQuickUnionUF a_union_set;
+	private WeightedQuickUnionUF a_union_set;
 	private int size;
 	private int top;
 	private int bottom;
