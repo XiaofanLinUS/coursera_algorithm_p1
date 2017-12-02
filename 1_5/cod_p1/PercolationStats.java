@@ -1,11 +1,13 @@
 import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.StdStats;
-import edu.princeton.cs.algs4.Stopwatch;
+
 
 public class PercolationStats {
 
 	public PercolationStats(int n, int trials) {
-		int p;
+	    if(n<= 0 || trials <= 0)  throw new IllegalArgumentException("Invalid Value n or trials");
+	        Percolation grid;
+	        int p;
 		int col = -1, row = -1;
 		int size = n * n;
 		int[] randomSites = new int[size];
@@ -113,7 +115,7 @@ public class PercolationStats {
 
 		return a;
 	}
-	private Percolation grid;
+
 	private int t;
 	private double[] success;
 	private double mean, stddev, confidenceLo, confidenceHi;

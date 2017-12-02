@@ -5,7 +5,8 @@ import java.lang.IllegalArgumentException;
 public class Percolation {
 
 	public Percolation(int n) {
-	    if(n <= 0) throw new IllegalArgumentException("Out of bound");
+		if (n <= 0)
+			throw new IllegalArgumentException("Invalid Value n");
 		// int last_row_first_col = n * (n - 1);
 		opened = 0;
 
@@ -23,7 +24,7 @@ public class Percolation {
 		size = n;
 
 		perlocated = false;
-		
+
 	}
 
 	private int xyToIndex(int row, int col) {
@@ -32,7 +33,8 @@ public class Percolation {
 	}
 
 	public void open(int row, int col) {
-
+		boolean topConnected = false;
+		boolean bottomConnected = false;
 		if (row < 1 || row > size || col < 1 || col > size)
 			throw new IllegalArgumentException("Out of bound");
 		int i = a_union_set.find(xyToIndex(row, col));
@@ -40,11 +42,17 @@ public class Percolation {
 		// If the site is not open, then open it else leave it alone
 		if (sites[i] == 0) {
 			opened++;
+			
+			if (row == size) {
+				sites[i] = 3;
+				bottomConnected = true;
+			}
+
 			if (row == 1) {
 				sites[i] = 2;
-			} else if (row == size) {
-				sites[i] = 3;
-			} else {
+				topConnected = true;
+
+			} else if(row != size && row != 1){
 				sites[i] = 1;
 			}
 
@@ -52,39 +60,62 @@ public class Percolation {
 			return;
 		}
 
+		// 1 means open, 2 means top-connected, 3 means bottom-connected
 		// Get upper elem
-		if (row != 1)
+		if (row != 1) {
 			neigh[0] = a_union_set.find(xyToIndex(row - 1, col));
+			if (sites[neigh[0]] == 2)
+				topConnected = true;
+
+			if (sites[neigh[0]] == 3)
+				bottomConnected = true;
+		}
+
 		// Get right elem
-		if (col != size)
+		if (col != size) {
 			neigh[1] = a_union_set.find(i + 1);
+			if (sites[neigh[1]] == 2)
+				topConnected = true;
+
+			if (sites[neigh[1]] == 3)
+				bottomConnected = true;
+		}
+
 		// Get lower elem
-		if (row != size)
+		if (row != size) {
 			neigh[2] = a_union_set.find(xyToIndex(row + 1, col));
+			if (sites[neigh[2]] == 2)
+				topConnected = true;
+
+			if (sites[neigh[2]] == 3)
+				bottomConnected = true;
+		}
 		// Get left elem
-		if (col != 1)
+		if (col != 1) {
 			neigh[3] = a_union_set.find(i - 1);
+			if (sites[neigh[3]] == 2)
+				topConnected = true;
+
+			if (sites[neigh[3]] == 3)
+				bottomConnected = true;
+		}
+
+
+		if (topConnected && bottomConnected)
+			perlocated = true;
 
 		// 4 calls to union()
 		for (int e : neigh) {
-			i = a_union_set.find(xyToIndex(row, col));
 			if (e != -1 && sites[e] != 0) {
-				if (sites[e] == sites[i]) {
 
-				} else {
-					if ((sites[e] == 3 && sites[i] == 2) || (sites[e] == 2 && sites[i] == 3)) {
-						perlocated = true;
-						sites[e] = 2;
-						sites[i] = 2;
-					} else if (sites[e] == 2 || sites[i] == 2) {
-						sites[e] = 2;
-						sites[i] = 2;
-					} else if (sites[e] == 3 || sites[i] == 3) {
-						sites[e] = 3;
-						sites[i] = 3;
-					}
-
+				if (topConnected) {
+					sites[e] = 2;
+					sites[i] = 2;
+				} else if (bottomConnected) {
+					sites[e] = 3;
+					sites[i] = 3;
 				}
+
 				a_union_set.union(e, i);
 			}
 		}
@@ -103,7 +134,7 @@ public class Percolation {
 	public boolean isOpen(int row, int col) {
 		if (row < 1 || row > size || col < 1 || col > size)
 			throw new IllegalArgumentException("Out of bound");
-		return sites[a_union_set.find(xyToIndex(row, col))] != 0;
+		return sites[xyToIndex(row, col)] != 0;
 	}
 
 	public int numberOfOpenSites() {
@@ -126,6 +157,6 @@ public class Percolation {
 	private int size;
 	// private int top;
 	// private int bottom;
-        private int opened;
+	private int opened;
 	private boolean perlocated;
 }
