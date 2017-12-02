@@ -26,16 +26,15 @@ public class QuadraticThreeSums {
     }
 	public static int countThreeSums(int[] a) {
 		int count = 0;
-		for (int i : a) {
-			count += countSums(a, -i);
-
+		for (int i = 0; i < a.length - 2; i++) {
+		    count += countSums(a, -a[i], i+1);
 		}
 		return count;
 	}
 
-	public static int countSums(int[] a, int goal) {
+    public static int countSums(int[] a, int goal, int head) {
 		int count = 0;
-		int i = 0, j = a.length - 1;
+		int i = head, j = a.length - 1;
 		while (i != j) {
 			if (a[i] + a[j] > goal) {
 				j--;
