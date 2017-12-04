@@ -3,7 +3,7 @@ class BitonicSearch {
 	public static void main(String[] args) {
 		int[] a = { -3, 8, 9, 20, 17, 5, 1 };
 		//int[] b = { -3, 8, 9, 20};
-		int key = bitonicSearch(9, a);
+		int key = bitonicSearch(5, a);
 		System.out.println(key);
 
 	}
@@ -14,14 +14,14 @@ class BitonicSearch {
 
 		int l1 = 0, h1 = maxy, l2 = maxy + 1, h2 = a.length - 1;
 
-		key = binarySearch(val, a, l1, h1);
+		key = binarySearch(val, a, l1, h1, false);
 		if (key != -1)
 			return key;
-		key = binarySearch(val, a, l2, h2);
+		key = binarySearch(val, a, l2, h2, true);
 		return key;
 	}
 
-	public static int binarySearch(int val, int[] a, int l, int h) {
+    public static int binarySearch(int val, int[] a, int l, int h, boolean reverse) {
 		// l >= 0 and h < arr.length!!!
 		int key = -1;
 		int m;
@@ -36,6 +36,11 @@ class BitonicSearch {
 			    h = m;
 			} else {
 				l = m + 1;
+			}
+			if(reverse) {
+			    int tmp = l;
+			    l = h;
+			    h = tmp;
 			}
 		
 		}
