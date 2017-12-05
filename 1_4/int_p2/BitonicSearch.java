@@ -10,7 +10,7 @@ class BitonicSearch {
 
 	public static int bitonicSearch(int val, int[] a) {
 		int key = -1;
-		int maxy = middleLine(a);
+		int maxy = middleLine2(a);
 
 		int l1 = 0, h1 = maxy, l2 = maxy + 1, h2 = a.length - 1;
 
@@ -51,6 +51,28 @@ class BitonicSearch {
 		return key;
 	}
 
+
+
+
+    private static int middleLine2(int[] arr) {
+	int l = 0, h = arr.length - 1;
+	int m;
+
+	while (l < h) {
+	    m = l + (h - l) / 2;
+
+	    if(arr[m] > arr[m - 1]) {
+		l = m + 1;
+	    }else {
+		h = m;
+
+	    }
+	}
+
+
+
+	return l;
+    }
 	public static int middleLine(int[] arr) {
 		int l = 0;
 		int h = arr.length - 1;
