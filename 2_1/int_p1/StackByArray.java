@@ -51,7 +51,8 @@ class StackByArray<Item> {
 	    s.push("2");
 	    s.push("3");
 
-	    for(int i = 0; i < s.size; i++) {
+	    int size = s.size;
+	    for(int i = 0; i < size; i++) {
 		System.out.println(s.pop());
 	    }
 	    
