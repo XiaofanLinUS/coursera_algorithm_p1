@@ -1,4 +1,6 @@
-class StackByArray<Item> {
+import java.util.Iterator;
+
+class StackByArray<Item> implements Iterable<Item> {
 	private Item[] items;
 	private int size;
 	private final int scaleFactor = 2;
@@ -15,6 +17,8 @@ class StackByArray<Item> {
 
 	}
 
+
+    
 	public Item pop() {
 		Item theItem = items[--size];
 		// Decrease the size and get the last item
@@ -51,10 +55,37 @@ class StackByArray<Item> {
 	    s.push("2");
 	    s.push("3");
 
+
+	    for(String a : s) {
+		System.out.println(a);
+	    }
+
 	    int size = s.size;
 	    for(int i = 0; i < size; i++) {
 		System.out.println(s.pop());
 	    }
-	    
+
+	}
+
+    
+	@Override
+	public Iterator<Item> iterator() {
+	    return new StackIterator();
+	}
+
+	private class StackIterator implements Iterator<Item> {
+	int current = size;
+	
+		@Override
+		public boolean hasNext() {
+			return current !=0;
+		}
+
+		@Override
+		public Item next() {
+			// TODO Auto-generated method stub
+			return items[--current];
+		}
+
 	}
 }
