@@ -6,6 +6,10 @@ public class Deque<Item> implements Iterable<Item> {
 	private Node head;
 	private Node tail;
 
+	public static void main(String[] args) {
+
+	}
+
 	public boolean isEmpty() {
 		return size == 0;
 	}
@@ -15,6 +19,9 @@ public class Deque<Item> implements Iterable<Item> {
 	}
 
 	public void addFirst(Item item) {
+
+		if (item == null)
+			throw new java.lang.IllegalArgumentException();
 		// Make sure when the queue is empty, the last and the first element are the
 		// same.
 		if (isEmpty()) {
@@ -33,6 +40,9 @@ public class Deque<Item> implements Iterable<Item> {
 	}
 
 	public void addLast(Item item) {
+
+		if (item == null)
+			throw new java.lang.IllegalArgumentException();
 		if (isEmpty()) {
 			tail = new Node(item);
 			head = tail;
@@ -47,8 +57,13 @@ public class Deque<Item> implements Iterable<Item> {
 	}
 
 	public Item removeFirst() {
+		if (isEmpty())
+			throw new java.util.NoSuchElementException();
 		Item i = head.item;
 		head = head.next;
+		
+		if(head == null) return i; // important check
+		
 		head.prev = null;
 
 		size--;
@@ -56,8 +71,13 @@ public class Deque<Item> implements Iterable<Item> {
 	}
 
 	public Item removeLast() {
+		if (isEmpty())
+			throw new java.util.NoSuchElementException();
 		Item i = tail.item;
 		tail = tail.prev;
+		
+		if(tail == null) return i; // important check
+		
 		tail.next = null;
 
 		size--;
@@ -65,7 +85,7 @@ public class Deque<Item> implements Iterable<Item> {
 	}
 
 	public Iterator<Item> iterator() {
-		return null;
+		return new DequeIterator();
 	}
 
 	private class Node {
@@ -78,7 +98,7 @@ public class Deque<Item> implements Iterable<Item> {
 		}
 	}
 
-	private class DequeIterator<Item> implements Iterator<Item> {
+	private class DequeIterator implements Iterator<Item> {
 		Node current = head;
 
 		public boolean hasNext() {
@@ -86,9 +106,15 @@ public class Deque<Item> implements Iterable<Item> {
 			return current != null;
 		}
 
+		public void remove() {
+			throw new java.util.NoSuchElementException();
+		}
+
 		public Item next() {
+
 			Item i = current.item;
 			current.next = current;
+
 			return i;
 		}
 
