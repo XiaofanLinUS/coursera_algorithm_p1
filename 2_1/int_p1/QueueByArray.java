@@ -37,7 +37,7 @@ class QueueByArray<Item> {
 
 	public Item dequeue() {
 		Item theItem = items[head++];
-		if (head >= items.length * 3 / 4)
+		if (head >= items.length * (1 - 1.0 / (ScaleFactor * ScaleFactor)))
 			adjust();
 		return theItem;
 	}
@@ -53,12 +53,14 @@ class QueueByArray<Item> {
 		} else {
 			newPlace = new Object[items.length];
 		}
-		head -= head;
-		tail -= head;
+		// Rebase the index
+		int newTail = tail - head;
 
-		for (int i = 0; i < tail; i++) {
-			newPlace[i] = items[i];
+		for (int i = 0; i < newTail; i++) {
+			newPlace[i] = items[head + i];
 		}
 		items = (Item[]) newPlace;
+		head = 0;
+		tail = newTail;
 	}
 }
