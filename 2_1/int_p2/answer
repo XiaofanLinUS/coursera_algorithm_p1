@@ -1,0 +1,9 @@
+Create two stacks. One is for regular items. The other is for maximums.
+Once a push is called.
+First push the item to the regular stack.
+Then, compare the item with the rest of the maximum stack to
+link the item to the appropriate position, Which will take O(n) to operate.
+
+Conclusion:
+Each pop operation will take constant time.
+Each push operation will take O(n) for the worst case.
