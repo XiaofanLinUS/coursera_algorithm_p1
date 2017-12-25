@@ -8,7 +8,7 @@
     .'//.-"                 `-.  |  .-'                 "-.\\`.
 
 
-## Part I
+## [Part I](https://www.coursera.org/learn/algorithms-part1/)
 
 ### Week 1
    - Union−Find
