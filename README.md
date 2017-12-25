@@ -12,7 +12,8 @@
 
 1. Week 1
    - Union−Find
-     - [x]Interview Problems
-     - [x]Coding Problems
+     - [x] Interview Problems
+     - [x] Coding Problems
    - Analysis of Algorithms
-     - [x]Interview Problems
+     - [x] Interview Problems
+   
