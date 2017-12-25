@@ -1,4 +1,4 @@
-# Study algorithm makes me high
+# Intro to Algorithm (Princeton University)
 
                 .-~~~~~~~~~-._       _.-~~~~~~~~~-.
             __.'              ~.   .~              `.__
