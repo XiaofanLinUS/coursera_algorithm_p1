@@ -1,0 +1,8 @@
+Create two stacks one for items to be enquequed and the another for items to be dequequed.
+
+Once enqueque gets called push the item to the enqueque stack, which will take one push operation, a constant time operation.
+Once dequeque gets called pop all items from the enqueque stack and push them to the dequeque stack. And pop the item out from it.
+It would take n push operations and n + 1 pop operations, a total of 2n+1 operations.
+However, once dequeque gets called for n times, a total of 3n operations are called on stack. Therefore, on average, there will be 3 operations
+per each dequeque operation. Since, pop takes a constant time to execute, dequeque by this way would also takes three times the duration which
+also a constant time.
