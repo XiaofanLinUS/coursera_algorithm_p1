@@ -26,9 +26,9 @@ Just for personal interst.
 ### Week 2
    - Stacks and Queues
      - [x] Interview Problems
-     - [ ] Coding Problems
+     - [x] Coding Problems - Score: 100%
    - Analysis of Algorithms
-     - [ ] Interview Problems
+     - [ ] Interview Problems - **In Process**
 
 
 ### Week 3
