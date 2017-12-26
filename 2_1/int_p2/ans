@@ -1,0 +1,3 @@
+Sort the two arrays using shell sort algorithm which takes O(N^3/2).
+And compare each entry with the same index within two arrays which takes O(N).
+If there exits a situation where two entries are not the same then two arrays are not permutations of each other.
