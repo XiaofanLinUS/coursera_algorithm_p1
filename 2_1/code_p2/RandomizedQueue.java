@@ -7,9 +7,17 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 	private int size;
 	private final int ScaleFactor = 2;
 
-        public Iterator<Item> iterator() {
+	public Iterator<Item> iterator() {
 
-		return null;
+		return new RQIterator();
+	}
+
+	public Item sample() {
+		if (isEmpty())
+			throw new java.util.NoSuchElementException();
+
+		return items[StdRandom.uniform(size)];
+
 	}
 
 	public RandomizedQueue() {
@@ -25,6 +33,9 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 	}
 
 	public void enqueue(Item item) {
+		if (item == null)
+			throw new java.lang.IllegalArgumentException();
+
 		size++;
 		if (size == items.length)
 			enlarge();
@@ -35,6 +46,9 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 	}
 
 	public Item dequeue() {
+		if (isEmpty())
+			throw new java.util.NoSuchElementException();
+
 		Item i = items[--size];
 		items[size] = null;
 		if (size <= items.length / (ScaleFactor * ScaleFactor))
@@ -53,7 +67,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
 	private void shrink() {
 		Object[] newPlace = new Object[items.length / ScaleFactor];
-		
+
 		for (int i = 0; i < size; i++) {
 			newPlace[i] = items[i];
 		}
@@ -71,8 +85,48 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 		for (int i = 0; i <= 9; i++) {
 			rq.enqueue(i);
 		}
-		for (int i = 0; i <= 9; i++) {
-			System.out.println(rq.dequeue());
+		for (int e : rq) {
+			System.out.println(e);
+		}
+		System.out.println("New");
+		for (int e : rq) {
+			System.out.println(e);
+		}
+		
+		System.out.println("New");
+		for (int e : rq) {
+			System.out.println(e);
+		}
+
+		
+		System.out.println("New");
+		for (int e : rq) {
+			System.out.println(e);
+		}
+	}
+
+	private class RQIterator implements Iterator<Item> {
+		int current;
+		int[] randomIndices;
+
+		public RQIterator() {
+			randomIndices = new int[size];
+			for (int i = 0; i < size; i++) {
+				randomIndices[i] = i;
+			}
+			StdRandom.shuffle(randomIndices);
+		}
+
+		public boolean hasNext() {
+			return current < size;
+		}
+
+		public Item next() {
+			return items[randomIndices[current++]];
+		}
+
+		public void remove() {
+			throw new java.lang.UnsupportedOperationException();
 		}
 
 	}
