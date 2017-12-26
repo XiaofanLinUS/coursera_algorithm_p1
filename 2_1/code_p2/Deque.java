@@ -6,9 +6,9 @@ public class Deque<Item> implements Iterable<Item> {
 	private Node head;
 	private Node tail;
 
-	public static void main(String[] args) {
+	// public static void main(String[] args) {
 
-	}
+	// }
 
 	public boolean isEmpty() {
 		return size == 0;

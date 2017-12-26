@@ -80,30 +80,30 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 		items[j] = tmp;
 	}
 
-	public static void main(String[] args) {
-		RandomizedQueue<Integer> rq = new RandomizedQueue<>();
-		for (int i = 0; i <= 9; i++) {
-			rq.enqueue(i);
-		}
-		for (int e : rq) {
-			System.out.println(e);
-		}
-		System.out.println("New");
-		for (int e : rq) {
-			System.out.println(e);
-		}
+	// public static void main(String[] args) {
+	// 	RandomizedQueue<Integer> rq = new RandomizedQueue<>();
+	// 	for (int i = 0; i <= 9; i++) {
+	// 		rq.enqueue(i);
+	// 	}
+	// 	for (int e : rq) {
+	// 		System.out.println(e);
+	// 	}
+	// 	System.out.println("New");
+	// 	for (int e : rq) {
+	// 		System.out.println(e);
+	// 	}
 		
-		System.out.println("New");
-		for (int e : rq) {
-			System.out.println(e);
-		}
+	// 	System.out.println("New");
+	// 	for (int e : rq) {
+	// 		System.out.println(e);
+	// 	}
 
 		
-		System.out.println("New");
-		for (int e : rq) {
-			System.out.println(e);
-		}
-	}
+	// 	System.out.println("New");
+	// 	for (int e : rq) {
+	// 		System.out.println(e);
+	// 	}
+	// }
 
 	private class RQIterator implements Iterator<Item> {
 		int current;
