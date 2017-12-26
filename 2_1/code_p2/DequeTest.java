@@ -1,5 +1,7 @@
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Iterator;
+
 import org.junit.jupiter.api.Test;
 
 public class DequeTest extends junit.framework.TestCase {
@@ -8,7 +10,7 @@ public class DequeTest extends junit.framework.TestCase {
 	}
 
 	public static void main(String args[]) {
-	    junit.textui.TestRunner.main(new String[] { "DequeTest", "RQTest" });
+	    junit.textui.TestRunner.main(new String[] { "DequeTest" });
 
 	}
 
@@ -76,7 +78,28 @@ public class DequeTest extends junit.framework.TestCase {
 		assertArrayEquals(expect, result);
 	}
 
-	@Test
+
+        @Test
+	public void testIterator() {
+
+		Deque<Integer> d = new Deque<Integer>();
+		int[] result = new int[10];
+		int[] expect = new int[10];
+		for (int i = 0; i < 10; i++) {
+			d.addFirst(i);
+			expect[i] = 9 - i;
+		}
+
+		Iterator<Integer> dequeIterator = d.iterator();
+		int i = 0;
+		while(dequeIterator.hasNext()) {
+		    result[i++] = dequeIterator.next();
+
+		}
+		assertArrayEquals(expect, result);
+
+	}
+        @Test
 	public void testRemoveLast() {
 		Deque<Integer> d = new Deque<Integer>();
 		int[] result = new int[10];
