@@ -2,7 +2,4 @@ Merge two arrays together.
 And use shell sort algorithm to sort the resulting array which takes O(N^3/2) in the worst case.
 And scan the whole array to count when there are repetitions between two consecutive elements which takes O(N).
 
-Use shell sort to sort two individual arrays which takes O(N^3/2).
-Remove the counting with repetitive items with in each array which takes O(N).
-
 In total, the whole process takes around O(N^3/2) as required.
