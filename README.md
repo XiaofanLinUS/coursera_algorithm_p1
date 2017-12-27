@@ -28,12 +28,12 @@ Just for personal interst.
      - [x] Interview Problems
      - [x] Coding Problems - Score: 100%
    - Analysis of Algorithms
-     - [ ] Interview Problems - **In Process**
+     - [x] Interview Problems
 
 
 ### Week 3
    - Mergesort
-     - [ ] Interview Problems
+     - [ ] Interview Problems - **In Process**
      - [ ] Coding Problems
    - Quicksort
      - [ ] Interview Problems
@@ -62,6 +62,6 @@ Just for personal interst.
    - Symbol Table Applications
      - [ ] Interview Problems
 
-## Part I
+## Part II
 
 ### *Not yet Started*
