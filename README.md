@@ -40,9 +40,9 @@ Just for personal interst.
 
 
 ### Midterm ?!#!@$%$*^&%^$#@!
-   - Interview Problems
+   - [ ] Interview Problems
      - [ ]    
-   - Coding Problems
+   - [ ] Coding Problems
      - [ ]    
       
 ### Week 4
