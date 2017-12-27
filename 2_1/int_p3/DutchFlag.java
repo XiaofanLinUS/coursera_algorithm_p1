@@ -28,7 +28,7 @@ public class DutchFlag {
 
 		/**
 		 * From 0 to i - 1, buckets contain redballs. From i to k - 1, buckets contain
-		 * whiteballs. From k to j - 1, buckets are unexamined. From j - 1 to size - 1,
+		 * whiteballs. From k to j, buckets are unexamined. From j + 1 to size - 1,
 		 * buckets contain blueballs.
 		 **/
 
