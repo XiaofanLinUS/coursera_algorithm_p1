@@ -39,6 +39,10 @@ Just for personal interst.
      - [ ] Interview Problems
 
 
+### Midterm ?!#!@$%$*^&%^$#@!
+    - [ ] Interview Problems
+    - [ ] Coding Problems
+    
 ### Week 4
    - Priority Queues
      - [ ] Interview Problems
