@@ -33,8 +33,8 @@ Just for personal interst.
 
 ### Week 3
    - Mergesort
-     - [ ] Interview Problems - **In Process**
-     - [ ] Coding Problems
+     - [x] Interview Problems
+     - [ ] Coding Problems - **In Process**
    - Quicksort
      - [ ] Interview Problems
 
