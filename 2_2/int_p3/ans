@@ -1,0 +1,12 @@
+
+recursively merge two shuffled array to one shuffled array.
+
+Using i and j for two subarrays and scan from left to right.
+
+when compare two different elements, using uniform random to create 0 or 1.
+
+If 0, move the element from left array to the destination array and i++.
+If 1, move the element from right array to the destination array and j++.
+
+When i is out, move the rest of right array to the destination array.
+When j is out, move the rest of left array to the destination array.
