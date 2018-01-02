@@ -1,0 +1,34 @@
+Arr:
+[1, 3, 5 ,7 , 2, 4, 6, 8]
+ i            j
+Aux Arr:
+[1, 2, 3, 4]
+
+Switch:
+
+Arr:
+[1, 2, 3, 4, 2, 4, 6, 8]
+             k     j
+Aux Arr:
+[1, 3, 5, 7]
+       i
+
+
+Arr:
+[1, 2, 3, 4, 5, 6, 7, 8]
+       	     k
+	     j
+Aux:
+[1, 2, 3, 4]
+	    i
+
+Property: i = j,
+k will never exceed j. (k <= j)
+So, when overwrite the last half of the original array, we do not lose any info of the array when iterating.
+
+
+Answer:
+
+Do the first n merge operation, and write the result to aux array.
+Then, do the rest n merge operation, write the result to the last half of the original array.
+Copy the whole aux array to the first half of the original array.
