@@ -1,0 +1,21 @@
+Recursive Routine:
+
+Randomly, select one bolt v1 from the pile of bolts.
+Use v1 to partition the pile of nuts w into three parts. (Using the dutch flag algorithm)
+
+[compare(w, v1) < 0] [compare(w, v1) == 0] [compare(w, v1) > 0]
+                     
+left pile of nuts    middle pile of nuts   right pile of nuts
+     	     	     denote the nuts
+		     from the middle
+		     pile as w_m
+		     
+Select another bolt v2 from the pile of bolts,
+
+if(compare(w_m, v2) == 0) put bolt2 into middle pile of bolts
+if(compare(w_m, v2) > 0) repeat this recursive routine on the left pile of nuts using v2.
+if(compare(w_m, v2) < 0) repeat this recursive routine on the right pile of nuts using v2.
+
+Ending condition for recursive routine:
+
+the size of pile is less or equal to 1.
