@@ -23,8 +23,9 @@ public class BruteCollinearPoints {
 						continue;
 
 					for (int w = 0; w < points.length; w++) {
-						if (w == z || y == z || x == z)
+						if (w == z || y == w || x == w)
 							continue;
+
 						int x_y = points[x].compareTo(points[y]);
 						int y_z = points[y].compareTo(points[z]);
 						int z_w = points[z].compareTo(points[w]);
@@ -35,9 +36,10 @@ public class BruteCollinearPoints {
 							continue;
 
 						double x_to_y = points[x].slopeTo(points[y]);
+                                                double y_to_z = points[y].slopeTo(points[z]);
 						double z_to_w = points[z].slopeTo(points[w]);
 
-						if (x_to_y == z_to_w) {
+						if (x_to_y == y_to_z && y_to_z == z_to_w) {
 							lines_arr_list.add(new LineSegment(points[x], points[w]));
 						}
 
