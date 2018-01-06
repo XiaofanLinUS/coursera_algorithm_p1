@@ -132,9 +132,9 @@ public class Point implements Comparable<Point> {
 
 	private class BySlope implements Comparator<Point> {
 		public int compare(Point x, Point y) {
-                  if(slopeTo(x) == Double.NEGATIVE_INFINITY) return -1;
-                  if(slopeTo(y) == Double.NEGATIVE_INFINITY) return 1;
-                  return (int) (Math.floor(slopeTo(x) - slopeTo(y)));
+                  if(slopeTo(x) > slopeTo(y)) return 1;
+                  if(slopeTo(x) < slopeTo(y)) return -1;
+                  return 0;
 		}
 
 	}
