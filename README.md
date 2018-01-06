@@ -34,9 +34,9 @@ Just for personal interst.
 ### Week 3
    - Mergesort
      - [x] Interview Problems
-     - [ ] Coding Problems - **In Process**
+     - [x] Coding Problems - Score: 100%
    - Quicksort
-     - [ ] Interview Problems
+     - [x] Interview Problems - **In Process**
 
 
 ### Midterm ?!#!@$%$*^&%^$#@!
