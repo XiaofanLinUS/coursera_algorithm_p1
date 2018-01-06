@@ -6,18 +6,43 @@ import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.StdOut;
 
 public class BruteCollinearPoints {
-	LineSegment[] lines;
-	int size;
+	private LineSegment[] lines;
+	private int size;
 
-	public BruteCollinearPoints(Point[] points) {
-		ArrayList<LineSegment> lines_arr_list = new ArrayList<>();
+	private void exceptionCheck(Point[] points) {
+
 		if (points == null)
 			throw new java.lang.IllegalArgumentException("NULL argument");
+
+		for (Point p : points) {
+			if (p == null)
+				throw new java.lang.IllegalArgumentException("NULL Point");
+		}
+
+		for (int i = 0; i < points.length - 1; i++) {
+			for (int j = i + 1; j < points.length; j++) {
+				if (points[i].compareTo(points[j]) == 0)
+					throw new java.lang.IllegalArgumentException("Repeated Point");
+			}
+		}
+
+	}
+
+	public BruteCollinearPoints(Point[] points) {
+		exceptionCheck(points);
+		if (points.length < 4) {
+			size = 0;
+			lines = new LineSegment[0];
+			return;
+		}
+
+		ArrayList<LineSegment> lines_arr_list = new ArrayList<>();
 
 		for (int x = 0; x < points.length; x++) {
 			for (int y = 0; y < points.length; y++) {
 				if (x == y)
 					continue;
+
 				for (int z = 0; z < points.length; z++) {
 					if (y == z || x == z)
 						continue;
@@ -26,17 +51,16 @@ public class BruteCollinearPoints {
 						if (w == z || y == w || x == w)
 							continue;
 
+	      
 						int x_y = points[x].compareTo(points[y]);
 						int y_z = points[y].compareTo(points[z]);
 						int z_w = points[z].compareTo(points[w]);
 
-						if (x_y == 0 || y_z == 0 || z_w == 0)
-							throw new java.lang.IllegalArgumentException("Repeated Points");
 						if (x_y < 0 || y_z < 0 || z_w < 0)
 							continue;
 
 						double x_to_y = points[x].slopeTo(points[y]);
-                                                double y_to_z = points[y].slopeTo(points[z]);
+						double y_to_z = points[y].slopeTo(points[z]);
 						double z_to_w = points[z].slopeTo(points[w]);
 
 						if (x_to_y == y_to_z && y_to_z == z_to_w) {
@@ -52,6 +76,7 @@ public class BruteCollinearPoints {
 		for (int i = 0; i < size; i++) {
 			lines[i] = lines_arr_list.get(i);
 		}
+                lines_arr_list = null;
 
 	}
 
@@ -60,7 +85,7 @@ public class BruteCollinearPoints {
 	}
 
 	public LineSegment[] segments() {
-		return lines;
+		return lines.clone();
 	}
 
 	public static void main(String[] args) {
