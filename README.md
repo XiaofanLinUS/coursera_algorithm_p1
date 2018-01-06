@@ -36,7 +36,7 @@ Just for personal interst.
      - [x] Interview Problems
      - [x] Coding Problems - Score: 100%
    - Quicksort
-     - [x] Interview Problems - **In Process**
+     - [ ] Interview Problems - **In Process**
 
 
 ### Midterm ?!#!@$%$*^&%^$#@!
