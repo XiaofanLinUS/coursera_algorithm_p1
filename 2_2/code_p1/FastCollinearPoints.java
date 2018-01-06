@@ -14,28 +14,33 @@ public class FastCollinearPoints {
 		ArrayList<LineSegment> lines_arr_list = new ArrayList<>();
 
 		for (int i = 0; i < points.length; i++) {
-                  
+
 			int connect_counts = 1;
-                        int j;
-                     
+			int j;
+
 			Arrays.sort(points); // Sort the points in natural order
+
 			Point p = points[i];
 			Arrays.sort(points, p.slopeOrder());
-                        
-			for (j = 2; j < points.length; j++) {
 
-				// StdOut.println("i: " + i + " " + points[i]);
-				// StdOut.println("j: " + j + " " + points[j]);
-				// StdOut.println("Counts: " + connect_counts);
-				// StdOut.println("Comp  : " + p.compareTo(points[j - connect_counts + 1]));
+			for (j = 1; j < points.length; j++) {
+
+				StdOut.println("i: " + i + " " + p);
+				StdOut.println("j: " + j + " " + points[j]);
+				StdOut.println("Counts: " + connect_counts);
+				StdOut.println("Current Slope: " + p.slopeTo(points[j]));
+				StdOut.println("Current Comp : " + p.compareTo(points[j]));
+				StdOut.println("Comp : " + p.compareTo(points[j - connect_counts + 1]));
 
 				if (p.slopeTo(points[j - 1]) != p.slopeTo(points[j])) { // Check if two
+
 					if ((connect_counts >= 3) && (p.compareTo(points[j - connect_counts]) < 0)) {
 						/**
 						 * If there are four points at the line and the current point is the smallest
 						 * point that add this line segement
 						 **/
 						lines_arr_list.add(new LineSegment(points[j - 1], p));
+						StdOut.println("ADDED");
 					}
 					connect_counts = 1; // reset
 				} else {
@@ -43,9 +48,11 @@ public class FastCollinearPoints {
 				}
 
 			}
-                        
+
 			if ((connect_counts >= 3) && (p.compareTo(points[j - connect_counts]) < 0)) {
+				// Don't forget to check when inner loop is over
 				lines_arr_list.add(new LineSegment(points[j - 1], p));
+				StdOut.println("ADDED");
 			}
 
 		}
