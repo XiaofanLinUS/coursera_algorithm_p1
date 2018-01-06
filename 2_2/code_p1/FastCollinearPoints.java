@@ -29,7 +29,8 @@ public class FastCollinearPoints {
 
 	}
 
-	public FastCollinearPoints(Point[] points) {
+	public FastCollinearPoints(Point[] the_points) {
+		Point[] points = the_points.clone();
 		exceptionCheck(points);
 		if (points.length < 4) {
 			size = 0;

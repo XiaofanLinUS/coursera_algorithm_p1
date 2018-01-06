@@ -28,7 +28,8 @@ public class BruteCollinearPoints {
 
 	}
 
-	public BruteCollinearPoints(Point[] points) {
+	public BruteCollinearPoints(Point[] the_points) {
+		Point[] points = the_points.clone();
 		exceptionCheck(points);
 		if (points.length < 4) {
 			size = 0;
@@ -51,18 +52,12 @@ public class BruteCollinearPoints {
 						if (w == z || y == w || x == w)
 							continue;
 
-	      
-						int x_y = points[x].compareTo(points[y]);
-						int y_z = points[y].compareTo(points[z]);
-						int z_w = points[z].compareTo(points[w]);
-
-						if (x_y < 0 || y_z < 0 || z_w < 0)
-							continue;
-
 						double x_to_y = points[x].slopeTo(points[y]);
 						double y_to_z = points[y].slopeTo(points[z]);
 						double z_to_w = points[z].slopeTo(points[w]);
 
+						if (x_to_y < 0 || y_to_z < 0 || z_to_w < 0)
+							continue;
 						if (x_to_y == y_to_z && y_to_z == z_to_w) {
 							lines_arr_list.add(new LineSegment(points[x], points[w]));
 						}
@@ -76,7 +71,7 @@ public class BruteCollinearPoints {
 		for (int i = 0; i < size; i++) {
 			lines[i] = lines_arr_list.get(i);
 		}
-                lines_arr_list = null;
+		lines_arr_list = null;
 
 	}
 
