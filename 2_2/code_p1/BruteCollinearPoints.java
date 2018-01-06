@@ -30,8 +30,9 @@ public class BruteCollinearPoints {
 	}
 
 	public BruteCollinearPoints(Point[] the_points) {
+		exceptionCheck(the_points);
 		Point[] points = the_points.clone();
-		exceptionCheck(points);
+
 		if (points.length < 4) {
 			size = 0;
 			lines = new LineSegment[0];
