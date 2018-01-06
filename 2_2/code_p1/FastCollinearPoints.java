@@ -14,31 +14,44 @@ public class FastCollinearPoints {
 		ArrayList<LineSegment> lines_arr_list = new ArrayList<>();
 
 		for (int i = 0; i < points.length; i++) {
+                  
+			int connect_counts = 1;
+                        int j;
+                     
 			Arrays.sort(points); // Sort the points in natural order
 			Point p = points[i];
 			Arrays.sort(points, p.slopeOrder());
-			int connect_counts = 1;
-			for (int j = 1; j < points.length; j++) {
-				if (p.slopeTo(points[j - 1]) == p.slopeTo(points[j])) { // Check if two consecutive points are at the
-					// same line
-					connect_counts++; // If so, the total number of points at that line increase
-				} else {
+                        
+			for (j = 2; j < points.length; j++) {
 
-					if ((connect_counts >= 3) && (p.compareTo(points[j - connect_counts + 1]) < 0))
+				// StdOut.println("i: " + i + " " + points[i]);
+				// StdOut.println("j: " + j + " " + points[j]);
+				// StdOut.println("Counts: " + connect_counts);
+				// StdOut.println("Comp  : " + p.compareTo(points[j - connect_counts + 1]));
+
+				if (p.slopeTo(points[j - 1]) != p.slopeTo(points[j])) { // Check if two
+					if ((connect_counts >= 3) && (p.compareTo(points[j - connect_counts]) < 0)) {
 						/**
 						 * If there are four points at the line and the current point is the smallest
 						 * point that add this line segement
 						 **/
-						lines_arr_list.add(new LineSegment(points[j], p));
+						lines_arr_list.add(new LineSegment(points[j - 1], p));
+					}
 					connect_counts = 1; // reset
-
+				} else {
+					connect_counts++;
 				}
 
 			}
+                        
+			if ((connect_counts >= 3) && (p.compareTo(points[j - connect_counts]) < 0)) {
+				lines_arr_list.add(new LineSegment(points[j - 1], p));
+			}
+
 		}
 
 		size = lines_arr_list.size();
-                lines = new LineSegment[size];
+		lines = new LineSegment[size];
 		for (int i = 0; i < size; i++)
 			lines[i] = lines_arr_list.get(i);
 
