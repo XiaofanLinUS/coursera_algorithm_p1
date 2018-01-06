@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdDraw;
@@ -38,24 +39,14 @@ public class BruteCollinearPoints {
 		}
 
 		ArrayList<LineSegment> lines_arr_list = new ArrayList<>();
+		Arrays.sort(points);
+		for (int x = 0; x < points.length - 3; x++) {
+			for (int y = x + 1; y < points.length - 2; y++) {
 
-		for (int x = 0; x < points.length; x++) {
-			for (int y = 0; y < points.length; y++) {
-				if (x == y)
-					continue;
+				for (int z = y + 1; z < points.length - 1; z++) {
 
-				for (int z = 0; z < points.length; z++) {
-					if (y == z || x == z)
-						continue;
+					for (int w = z + 1; w < points.length; w++) {
 
-					for (int w = 0; w < points.length; w++) {
-						if (w == z || y == w || x == w)
-							continue;
-
-						if (points[x].compareTo(points[y]) < 0 || points[y].compareTo(points[z]) < 0 || points[z].compareTo(points[w]) < 0)
-							continue;
-
-                                                
 						double x_to_y = points[x].slopeTo(points[y]);
 						double y_to_z = points[y].slopeTo(points[z]);
 						double z_to_w = points[z].slopeTo(points[w]);
