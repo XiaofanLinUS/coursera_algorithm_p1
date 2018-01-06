@@ -52,12 +52,14 @@ public class BruteCollinearPoints {
 						if (w == z || y == w || x == w)
 							continue;
 
+						if (points[x].compareTo(points[y]) < 0 || points[y].compareTo(points[z]) < 0 || points[z].compareTo(points[w]) < 0)
+							continue;
+
+                                                
 						double x_to_y = points[x].slopeTo(points[y]);
 						double y_to_z = points[y].slopeTo(points[z]);
 						double z_to_w = points[z].slopeTo(points[w]);
 
-						if (x_to_y < 0 || y_to_z < 0 || z_to_w < 0)
-							continue;
 						if (x_to_y == y_to_z && y_to_z == z_to_w) {
 							lines_arr_list.add(new LineSegment(points[x], points[w]));
 						}
