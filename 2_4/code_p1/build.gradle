@@ -1,18 +1,25 @@
 apply plugin: 'java'
 apply plugin: 'application'
-// mainClassName = 'hello.HelloWorld'
+mainClassName = 'Board'
 
-repositories {
-    mavenCentral()
+// repositories {
+//     mavenCentral()
+// }
+allprojects {
+    repositories {	  
+	maven { url 'https://jitpack.io' }
+	mavenCentral()
+    }
 }
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-    compile "com.googlecode.princeton-java-algorithms:algorithms:4.0.1"
+    compile files('libs/algs4.jar')
     testCompile "junit:junit:4.12"
 }
+
 
 // jar {
 //     baseName = 'gs-gradle'

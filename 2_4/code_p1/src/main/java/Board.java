@@ -1,6 +1,12 @@
+import edu.princeton.cs.algs4.*;
+
+
 public class Board {
+
   private final int[][] blocks;
   private final int dimension;
+  
+  private Stack<Board> neighbors;
   
   public Board(int[][] blocks) {
     dimension = blocks.length;
@@ -11,9 +17,10 @@ public class Board {
       for(int col = 0; col < dimension; col++) {        
         this.blocks[row][col] = blocks[row][col]; 
       }
-    }           
+    }
+    neighbors = new Stack<>();
   }
-   
+  
   public int dimension() {
     return dimension;
   }
@@ -80,23 +87,82 @@ public class Board {
   }
   
   public Iterable<Board> neighbors() {
-    return null;
+    if(neighbors.isEmpty()) {
+      int rowOfBlank = 0, colOfBlank = 0;
+      // The position of blank block
+      int[][] dumper = new int[dimension][dimension];
+      Board dumpBoard;
+    
+      for(int row = 0; row < dimension; row++) {
+        for(int col = 0; col < dimension; col++) {
+          if(blocks[row][col] == 0) {
+            rowOfBlank = row;
+            colOfBlank = col;
+            break;
+          }
+        }
+      }
+      // Move Right the left one
+    
+
+      if(colOfBlank > 0) {
+        cloneTo(dumper);
+        dumper[rowOfBlank][colOfBlank]
+            =     
+            dumper[rowOfBlank][colOfBlank-1];
+        dumper[rowOfBlank][colOfBlank-1] = 0;
+      
+        neighbors.push(new Board(dumper));
+      }
+      // Move Left the right one
+
+      if(colOfBlank < dimension - 1) {
+        cloneTo(dumper);
+        dumper[rowOfBlank][colOfBlank]
+            =     
+            dumper[rowOfBlank][colOfBlank+1];
+        dumper[rowOfBlank][colOfBlank+1] = 0;
+      
+        neighbors.push(new Board(dumper));
+      }
+    
+      // Move Down the upper one
+    
+      if(rowOfBlank > 0) {
+        cloneTo(dumper);
+        dumper[rowOfBlank][colOfBlank]
+            =
+            dumper[rowOfBlank-1][colOfBlank];
+        dumper[rowOfBlank-1][colOfBlank] = 0;
+      
+        neighbors.push(new Board(dumper));
+      }
+    
+      // Move Up the lower one
+    
+      if(rowOfBlank < dimension - 1) {
+        cloneTo(dumper);
+        dumper[rowOfBlank][colOfBlank]
+            =     
+            dumper[rowOfBlank+1][colOfBlank];
+        dumper[rowOfBlank+1][colOfBlank] = 0;
+        neighbors.push(new Board(dumper));
+      }
+    }
+
+    return neighbors;
   }
   
   public String toString() {
-    String output = "";
-
-    output += "Dimension: " + dimension + "\n";
-    output += "Board:\n";
-
-    for(int row = 0; row < dimension; row++) {      
-      for(int col = 0; col < dimension; col++) { 
-        output += blocks[row][col] + " ";        
+    StringBuilder output = new StringBuilder();
+    output.append(dimension + "\n");
+    for (int i = 0; i < dimension; i++) {
+      for (int j = 0; j < dimension; j++) {
+        output.append(String.format("%2d ", blocks[i][j]));
       }
-      output += "\n";
+      output.append("\n");
     }
-    
-    return output;
+    return output.toString();
   }
   
   private int getRightIndex(int x, int y) {
@@ -137,6 +203,12 @@ public class Board {
     Board notPerfectTwo = new Board(testThree);
     System.out.println(notPerfectTwo.manhattan());
     System.out.println(notPerfectTwo.hamming());
+    System.out.println("Original: ");
+    System.out.println(notPerfectTwo);
+    
+    for(Board aNeightbor : notPerfectTwo.neighbors()) {
+      System.out.println(aNeightbor);
+    }
   }
 
   private int[] getRowAndCol(int index) {
@@ -151,5 +223,12 @@ public class Board {
     position[1] = col;
     
     return position;
+  }
+  private void cloneTo(int[][] array) {
+    for(int row = 0; row < dimension; row++) {
+      for(int col = 0; col < dimension; col++) {
+        array[row][col] = blocks[row][col];
+      }
+    }
   }
 }
