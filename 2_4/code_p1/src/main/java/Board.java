@@ -7,7 +7,7 @@ public class Board {
   private final int dimension;
   
   private Stack<Board> neighbors;
-  
+  private Board twin;
   public Board(int[][] blocks) {
     dimension = blocks.length;
     // Retrieve the dimention of the board
@@ -54,9 +54,7 @@ public class Board {
           totalDistance += dx + dy;
         }
       }
-    }           
-  
-    
+    }      
     return totalDistance;
   }
   
@@ -66,7 +64,52 @@ public class Board {
   }
   
   public Board twin() {
-    return null;
+    if(twin == null) {
+      int rowOfBlank = 0, colOfBlank = 0;
+      // The position of blank block
+      int blankIndex;
+      // index of the blank block
+      int toBeSwitch1, toBeSwitch2;
+      // indices of switch blocks
+      int temp;
+      // for switch
+      int[] posOfToBeSwitch1, posOfToBeSwitch2;
+      int[][] dumper = new int[dimension][dimension];
+      cloneTo(dumper);
+      for(int row = 0; row < dimension; row++) {
+        for(int col = 0; col < dimension; col++) {
+          if(blocks[row][col] == 0) {
+            rowOfBlank = row;
+            colOfBlank = col;
+            break;
+          }
+        }
+      }
+      blankIndex = RowAndColToIndex(rowOfBlank, colOfBlank);
+
+      if(blankIndex <= dimension * dimension - 3) {
+        toBeSwitch1 = blankIndex + 1;
+        toBeSwitch2 = blankIndex + 2;
+
+      }else {
+        toBeSwitch1 = blankIndex - 1;
+        toBeSwitch2 = blankIndex - 2;
+      }
+      
+      posOfToBeSwitch1 = indexToRowAndCol(toBeSwitch1);
+      posOfToBeSwitch2 = indexToRowAndCol(toBeSwitch2);
+
+      temp = dumper[posOfToBeSwitch1[0]][posOfToBeSwitch1[1]];
+
+      dumper[posOfToBeSwitch1[0]][posOfToBeSwitch1[1]] =
+          dumper[posOfToBeSwitch2[0]][posOfToBeSwitch2[1]];
+
+      dumper[posOfToBeSwitch2[0]][posOfToBeSwitch2[1]] =
+          temp;
+      
+      twin = new Board(dumper);
+    }
+    return twin;
   }
   
   public boolean equals(Object that) {
@@ -169,6 +212,14 @@ public class Board {
     return x * dimension + y + 1;    
   }
 
+  private int[] indexToRowAndCol(int index) {
+    return getRowAndCol(++index);
+  }
+
+  private int RowAndColToIndex(int row, int col) {
+    return getRightIndex(row, col - 1);
+  }
+  
   private int abs(int num) {
     if(num < 0) num = -num;
     return num;
@@ -189,6 +240,14 @@ public class Board {
                          {4, 0, 2},
                          {7, 6, 5}};
 
+    int[][] testFour = {{8, 1, 3},
+                        {4, 6, 2},
+                        {7, 5, 0}};
+
+    int[][] testFive = {{0, 1, 3},
+                        {4, 5, 2},
+                        {7, 6, 8}};
+
     Board perfectOne = new Board(testOne);
     System.out.println(perfectOne);
     System.out.println(perfectOne.hamming());
@@ -205,10 +264,26 @@ public class Board {
     System.out.println(notPerfectTwo.hamming());
     System.out.println("Original: ");
     System.out.println(notPerfectTwo);
-    
+
+    System.out.println("Neighbor: ");
     for(Board aNeightbor : notPerfectTwo.neighbors()) {
       System.out.println(aNeightbor);
     }
+    System.out.println("Twin: ");
+    System.out.println(notPerfectTwo.twin());
+    
+    Board twinTestOne= new Board(testFour);
+    System.out.println("Original: ");
+    System.out.println(twinTestOne);
+    System.out.println("Twin: ");
+    System.out.println(twinTestOne.twin());
+
+    Board twinTestTwo= new Board(testFive);
+    System.out.println("Original: ");
+    System.out.println(twinTestTwo);
+    System.out.println("Twin: ");
+    System.out.println(twinTestTwo.twin());
+
   }
 
   private int[] getRowAndCol(int index) {
