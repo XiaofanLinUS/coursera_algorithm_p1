@@ -248,6 +248,8 @@ public class Board {
                         {4, 5, 2},
                         {7, 6, 8}};
 
+
+    
     Board perfectOne = new Board(testOne);
     System.out.println(perfectOne);
     System.out.println(perfectOne.hamming());
@@ -283,6 +285,12 @@ public class Board {
     System.out.println(twinTestTwo);
     System.out.println("Twin: ");
     System.out.println(twinTestTwo.twin());
+    System.out.println("Neighbor: ");
+    
+    for(Board aNeightbor : twinTestTwo.neighbors()) {
+      System.out.println(aNeightbor);
+    }
+
 
   }
 
@@ -299,6 +307,7 @@ public class Board {
     
     return position;
   }
+  
   private void cloneTo(int[][] array) {
     for(int row = 0; row < dimension; row++) {
       for(int col = 0; col < dimension; col++) {
@@ -306,4 +315,5 @@ public class Board {
       }
     }
   }
+  
 }
