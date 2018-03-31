@@ -1,80 +1,129 @@
 import edu.princeton.cs.algs4.MinPQ;
 import edu.princeton.cs.algs4.Queue;
+import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.algs4.In;
 
 import java.util.Comparator;
 
 public class Solver {
-  private MinPQ<Board> hamOptimal;
-  private MinPQ<Board> manOptimal;
+  private MinPQ<Board> optimalsQueue;
+  // The priority queues storing all
+  // neightbhors of a evolving board
   
-  private Queue<Board> hamOptimalPath;
-  private Queue<Board> manOptimalPath;
-
+  private MinPQ<Board> dualOptimalsQueue;
+  // The optimalsQueue using the twin
+  // version as a starting point
+  
+  private Queue<Board> optimalPath;
+  // The queue containing all the boards
+  // to the solution
 
   
   private int moveCount;
+  // the moving count
   
   private Board lastMove;
+  // A place to hold the predecessor board  
+  // for each iteration
 
+  private boolean solvable;
   
   public Solver(Board initial) {
-    Comparator<Board> byHam = 
-        (Board b1, Board b2)->(b1.hamming()  -b2.hamming());
-    
-    Comparator<Board> byMan = 
-        (Board b1, Board b2)->(b1.manhattan()-b2.manhattan());
+    Comparator<Board> manThenHam = 
+        (Board b1, Board b2)-> {
+      int compareVal = b1.manhattan()-b2.manhattan();
+      
+      return compareVal == 0 ? b1.hamming() - b2.hamming() : compareVal;
 
-    hamOptimal = new MinPQ<>(byHam);
-    manOptimal = new MinPQ<>(byMan);
-    hamOptimalPath = new Queue<>();
-    manOptimalPath = new Queue<>();
+    };
+    // Comparator that first compare man values then
+    // ham values if tight happens
     
-    hamOptimal.insert(initial);
-    manOptimal.insert(initial);
+    optimalsQueue = new MinPQ<>(manThenHam);
+
+    
+    dualOptimalsQueue = new MinPQ<>(manThenHam);
+    
+    optimalPath = new Queue<>();
+    
+    optimalsQueue.insert(initial);
+    dualOptimalsQueue.insert(initial.twin());
     
     moveCount = 0;
     lastMove = null;
     
+    solvable = solveIt();
   }
   
   public boolean isSolvable() {
-    return false;
+    return solvable;
   }
   public int moves() {
-    return 0;
+    return moveCount;
   }
   public Iterable<Board> solution() {
-    solveIt();
-    return null;
+
+    return optimalPath;
   }
 
-  private void solveIt() {
+  private boolean solveIt() {
+    Board currentBoard = optimalsQueue.delMin();
 
+    Board currentDualBoard = dualOptimalsQueue.delMin();
 
-    Board currentBoard = hamOptimal.delMin();
-    
-    while(!currentBoard.isGoal())
+    while(!currentBoard.isGoal() || !currentDualBoard.isGoal())
     {     
       
       for(Board aNeightbor : currentBoard.neighbors()) {
-        if (lastMove != null
-             &&
+        if (lastMove == null
+            ||
             !aNeightbor.equals(lastMove))
         {
-          hamOptimal.insert(aNeightbor);
-        }
+          optimalsQueue.insert(aNeightbor);
+        }        
       }
-      
+
+      for(Board aNeightbor : currentDualBoard.neighbors()) {
+        if (lastMove == null
+            ||
+            !aNeightbor.equals(lastMove))
+        {
+          dualOptimalsQueue.insert(aNeightbor);
+        }        
+      }
+
       lastMove = currentBoard;
-      currentBoard = hamOptimal.delMin();
-      hamOptimalPath.enqueue(lastMove);
+      currentBoard = optimalsQueue.delMin();
+      currentDualBoard = dualOptimalsQueue.delMin();
+      optimalPath.enqueue(lastMove);
       moveCount++;
     }
-    hamOptimalPath.enqueue(currentBoard);
+    optimalPath.enqueue(currentBoard);
+    return currentBoard.isGoal();
+  }
+  
+  public static void main(String[] args) {
+    // create initial board from file
+    In in = new In(args[0]);
+    int n = in.readInt();
+    int[][] blocks = new int[n][n];
+    for (int i = 0; i < n; i++)
+      for (int j = 0; j < n; j++)
+        blocks[i][j] = in.readInt();
+    Board initial = new Board(blocks);
+
+    // solve the puzzle
+    Solver solver = new Solver(initial);
+
+    // print solution to standard output
+    if (!solver.isSolvable())
+      StdOut.println("No solution possible");
+    else {
+      StdOut.println("Minimum number of moves = " + solver.moves());
+      for (Board board : solver.solution())
+        StdOut.println(board);
+    }
     
   }
-  public static void main(String[] args) {
-
-
-  }
+  
 }
